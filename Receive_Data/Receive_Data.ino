@@ -40,13 +40,13 @@ void notify()
 
   while(PS4.Left())
   {
-    motorDriver.left(100, 175);
+    motorDriver.left(100, normalSpeed);
     Serial.println("LEFT BUTTON - LEFT");
   }
 
   while(PS4.Right())
   {
-    motorDriver.right(175,100);
+    motorDriver.right(normalSpeed,100);
     Serial.println("RIGHT BUTTON - RIGHT");
   }
 
