@@ -14,53 +14,65 @@ int in_4 = 19;
 int connectionLed = 12;
 
 motorDriver motorDriver(enableA, enableB, in_1, in_2, in_3, in_4);
-int speedA = 100;
-int speedB = 100;
 
+int normalSpeed = 175;
 int overdrive = 255;
 
 void notify()
 {
-  if(PS4.Cross()){
-    motorDriver.forward(speedA, speedB);
+  while(PS4.Cross())
+  {
+    motorDriver.forward(normalSpeed, normalSpeed);
     Serial.println("CROSS BUTTON - FORWARD");
   }
 
-  if(PS4.Square()){
-    motorDriver.backward(speedA, speedB);
+  while(PS4.Square())
+  {
+    motorDriver.backward(normalSpeed, normalSpeed);
     Serial.println("SQUARE BUTTON - BACKWARD");
   }
 
-  if(PS4.Circle()){
+  while(PS4.Circle())
+  {
     motorDriver.halt();
     Serial.println("CIRCLE BUTTON - STOP");
     }
 
-  if(PS4.Left()){
-    motorDriver.left(30, 100);
+  while(PS4.Left())
+  {
+    motorDriver.left(100, 175);
     Serial.println("LEFT BUTTON - LEFT");
   }
 
-  if(PS4.Right()){
-    motorDriver.right(100,30);
+  while(PS4.Right())
+  {
+    motorDriver.right(175,100);
     Serial.println("RIGHT BUTTON - RIGHT");
   }
 
-  if(PS4.L1()){
-    motorDriver.rotateCCW(speedA, speedB);
+  while(PS4.L1())
+  {
+    motorDriver.rotateCCW(normalSpeed, normalSpeed);
     Serial.println("L1 BUTTON - ROTATE COUNTER CLOCKWISE");
   }
 
-  if(PS4.R1()){
-    motorDriver.rotateCW(speedA, speedB);
+  while(PS4.R1())
+  {
+    motorDriver.rotateCW(normalSpeed, normalSpeed);
     Serial.println("R1 BUTTON - ROTATE CLOCKWISE");
   }
 
-  if(PS4.R2()){
+  while(PS4.R2())
+  {
     motorDriver.forward(overdrive, overdrive);
     Serial.println("R2 BUTTON - OVERDRIVE");
   }
 
+  while(PS4.L2())
+  {
+    motorDriver.backward(overdrive, overdrive);
+    Serial.println("L2 BUTTON - OVERDRIVE");
+  }
 }
 
 void onConnect()
@@ -72,6 +84,7 @@ void onConnect()
 void onDisConnect()
 {
   Serial.println("Disconnected!.");    
+  digitalWrite(connectionLed, LOW);
 }
 
 void setup() 
@@ -90,5 +103,5 @@ void setup()
 
 void loop() 
 {
-
+//blank
 }
