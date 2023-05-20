@@ -20,58 +20,62 @@ int overdrive = 255;
 
 void notify()
 {
-  while(PS4.Cross())
+  if(PS4.Cross())
   {
     motorDriver.forward(normalSpeed, normalSpeed);
     Serial.println("CROSS BUTTON - FORWARD");
   }
 
-  while(PS4.Square())
+  if(PS4.Square())
   {
     motorDriver.backward(normalSpeed, normalSpeed);
     Serial.println("SQUARE BUTTON - BACKWARD");
   }
 
-  while(PS4.Circle())
+  if(PS4.Circle())
   {
     motorDriver.halt();
     Serial.println("CIRCLE BUTTON - STOP");
-    }
+  }
 
-  while(PS4.Left())
+  if(PS4.Left())
   {
     motorDriver.left(100, normalSpeed);
     Serial.println("LEFT BUTTON - LEFT");
   }
 
-  while(PS4.Right())
+  if(PS4.Right())
   {
     motorDriver.right(normalSpeed,100);
     Serial.println("RIGHT BUTTON - RIGHT");
   }
 
-  while(PS4.L1())
+  if(PS4.L1())
   {
     motorDriver.rotateCCW(normalSpeed, normalSpeed);
     Serial.println("L1 BUTTON - ROTATE COUNTER CLOCKWISE");
   }
 
-  while(PS4.R1())
+  if(PS4.R1())
   {
     motorDriver.rotateCW(normalSpeed, normalSpeed);
     Serial.println("R1 BUTTON - ROTATE CLOCKWISE");
   }
 
-  while(PS4.R2())
+  if(PS4.R2())
   {
     motorDriver.forward(overdrive, overdrive);
     Serial.println("R2 BUTTON - OVERDRIVE");
   }
 
-  while(PS4.L2())
+  if(PS4.L2())
   {
     motorDriver.backward(overdrive, overdrive);
     Serial.println("L2 BUTTON - OVERDRIVE");
+  }
+  else 
+  {
+    motorDriver.halt();
   }
 }
 
@@ -84,7 +88,6 @@ void onConnect()
 void onDisConnect()
 {
   Serial.println("Disconnected!.");    
-  digitalWrite(connectionLed, LOW);
 }
 
 void setup() 
@@ -99,6 +102,7 @@ void setup()
   sprintf(str, "ESP32's Bluetooth MAC address is - %02x:%02x:%02x:%02x:%02x:%02x", address[0],address[1],address[2],address[3],address[4],address[5]);
   Serial.println(str);
   Serial.println("Ready.");
+  pinMode(connectionLed, OUTPUT);
 }
 
 void loop() 
